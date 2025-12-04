@@ -10,6 +10,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from easy_dataset.database.base import Base
+# Import all models to ensure they're registered with Base BEFORE creating tables
 from easy_dataset.models import (
     Projects, Datasets, Chunks, Questions, UploadFiles, Tags,
     DatasetConversations, GaPairs, Images, ImageDatasets,
@@ -20,12 +21,15 @@ from easy_dataset_server.app import app
 from easy_dataset_server.dependencies import get_db
 
 
-# Create test database
-SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
+# Create test database - use file-based to avoid SQLite :memory: connection issues
+SQLALCHEMY_DATABASE_URL = "sqlite:///./test_dataset_api.db"
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 )
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Create tables after models are imported
+Base.metadata.create_all(bind=engine)
 
 
 def override_get_db():
@@ -37,7 +41,7 @@ def override_get_db():
         db.close()
 
 
-# Override the dependency
+# Override the dependency BEFORE creating test client
 app.dependency_overrides[get_db] = override_get_db
 
 # Create test client
@@ -46,11 +50,21 @@ client = TestClient(app)
 
 @pytest.fixture(autouse=True)
 def setup_database():
-    """Create tables before each test and drop after."""
-    # Import all models to ensure they're registered with Base
-    Base.metadata.create_all(bind=engine)
+    """Clean database before each test."""
     yield
-    Base.metadata.drop_all(bind=engine)
+    # Clean up all tables after each test using SQLAlchemy 2.0 syntax
+    with engine.begin() as conn:
+        for table in reversed(Base.metadata.sorted_tables):
+            conn.execute(table.delete())
+
+
+@pytest.fixture(scope="module", autouse=True)
+def cleanup_test_db():
+    """Remove test database file after all tests."""
+    yield
+    import os
+    if os.path.exists("./test_dataset_api.db"):
+        os.remove("./test_dataset_api.db")
 
 
 @pytest.fixture
