@@ -258,8 +258,8 @@
   - **Property 10: UTF-8 text handling**
   - **Validates: Requirements 3.5**
 
-- [ ] 8. Implement LLM integration layer
-- [ ] 8.1 Create base LLM provider interface
+- [x] 8. Implement LLM integration layer
+- [x] 8.1 Create base LLM provider interface
   - Define BaseLLMProvider abstract class in python-backend/easy_dataset/llm/base.py
   - Implement chat() method interface
   - Implement chat_stream() method interface
@@ -274,7 +274,7 @@
   - **Property 12: Retry with exponential backoff**
   - **Validates: Requirements 4.7**
 
-- [ ] 8.3 Implement OpenAI provider
+- [x] 8.3 Implement OpenAI provider
   - Create python-backend/easy_dataset/llm/providers/openai_provider.py
   - Use official openai Python SDK
   - Support GPT-3.5, GPT-4, GPT-4o models
@@ -282,7 +282,7 @@
   - Support vision models (GPT-4V)
   - _Requirements: 4.1_
 
-- [ ] 8.4 Implement Ollama provider
+- [x] 8.4 Implement Ollama provider
   - Create python-backend/easy_dataset/llm/providers/ollama_provider.py
   - Use ollama Python library or httpx
   - Connect to local Ollama instance
@@ -290,14 +290,14 @@
   - Support streaming responses
   - _Requirements: 4.2_
 
-- [ ] 8.5 Implement OpenRouter provider
+- [x] 8.5 Implement OpenRouter provider
   - Create python-backend/easy_dataset/llm/providers/openrouter_provider.py
   - Use OpenAI-compatible API client
   - Configure OpenRouter endpoint
   - Support multiple models through unified interface
   - _Requirements: 4.3_
 
-- [ ] 8.6 Implement LiteLLM provider
+- [x] 8.6 Implement LiteLLM provider
   - Create python-backend/easy_dataset/llm/providers/litellm_provider.py
   - Use litellm Python library
   - Support 100+ models through proxy
@@ -305,7 +305,7 @@
   - Add fallback and load balancing
   - _Requirements: 4.4_
 
-- [ ] 8.7 Implement Gemini provider
+- [x] 8.7 Implement Gemini provider
   - Create python-backend/easy_dataset/llm/providers/gemini_provider.py
   - Use google-generativeai SDK
   - Support Gemini Pro and Gemini Pro Vision
@@ -313,15 +313,15 @@
   - Support multimodal inputs
   - _Requirements: 4.5_
 
-- [ ] 8.8 Create LLM service orchestrator
+- [x] 8.8 Create LLM service orchestrator
   - Implement LLMService class in python-backend/easy_dataset/llm/service.py to manage providers
   - Load provider configuration from database
   - Handle provider selection based on model config
   - Extract thinking chains and answers from responses
   - _Requirements: 4.1, 6.4_
 
-- [ ] 9. Implement prompt management system
-- [ ] 9.1 Create prompt templates for questions
+- [x] 9. Implement prompt management system
+- [x] 9.1 Create prompt templates for questions
   - Create python-backend/easy_dataset/llm/prompts/question_prompts.py
   - Define question generation prompts
   - Support multiple languages (en, zh-CN, tr)
@@ -336,7 +336,7 @@
   - **Property 35: Language-specific prompts**
   - **Validates: Requirements 11.2**
 
-- [ ] 9.3 Create prompt templates for answers
+- [x] 9.3 Create prompt templates for answers
   - Create python-backend/easy_dataset/llm/prompts/answer_prompts.py
   - Define answer generation prompts
   - Support chain-of-thought prompts
@@ -349,7 +349,7 @@
   - **Property 16: Answer context inclusion**
   - **Validates: Requirements 6.1**
 
-- [ ] 9.5 Create prompt templates for evaluation and cleaning
+- [x] 9.5 Create prompt templates for evaluation and cleaning
   - Create python-backend/easy_dataset/llm/prompts/eval_prompts.py
   - Define dataset evaluation prompts
   - Define data cleaning prompts
