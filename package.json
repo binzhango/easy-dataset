@@ -21,10 +21,11 @@
     "electron-pack": "electron-builder --dir",
     "electron-dist": "electron-builder",
     "clean-dist": "rm -rf dist",
-    "electron-build": "pnpm clean-dist && pnpm db:template && prisma db push && next build && electron-builder -mwl",
-    "electron-build-mac": "pnpm clean-dist && pnpm db:template && prisma db push && next build && electron-builder --mac",
-    "electron-build-win": "pnpm clean-dist && pnpm db:template && prisma db push && next build && electron-builder --win",
-    "electron-build-linux": "pnpm clean-dist && pnpm db:template && prisma db push && next build && electron-builder --linux",
+    "prepare-python": "node scripts/prepare-python-build.js",
+    "electron-build": "pnpm clean-dist && pnpm prepare-python && pnpm db:template && prisma db push && next build && electron-builder -mwl",
+    "electron-build-mac": "pnpm clean-dist && pnpm prepare-python && pnpm db:template && prisma db push && next build && electron-builder --mac",
+    "electron-build-win": "pnpm clean-dist && pnpm prepare-python && pnpm db:template && prisma db push && next build && electron-builder --win",
+    "electron-build-linux": "pnpm clean-dist && pnpm prepare-python && pnpm db:template && prisma db push && next build && electron-builder --linux",
     "docker": "docker build -t easy-dataset .",
     "prettier": "npx prettier --write ."
   },
@@ -133,12 +134,31 @@
       "prisma/template.sqlite",
       "prisma/sql.json",
       "node_modules/.prisma/**/*",
-      "node_modules/@prisma/client/**/*"
+      "node_modules/@prisma/client/**/*",
+      {
+        "from": "python-backend",
+        "to": "python-backend",
+        "filter": [
+          "**/*",
+          "!**/__pycache__/**",
+          "!**/*.pyc",
+          "!**/*.pyo",
+          "!**/.pytest_cache/**",
+          "!**/tests/**",
+          "!**/.venv/**",
+          "!**/.coverage",
+          "!**/htmlcov/**",
+          "!**/*.egg-info/**",
+          "!**/dist/**",
+          "!**/build/**"
+        ]
+      }
     ],
     "directories": {
       "buildResources": "public",
       "output": "dist"
     },
+    "afterPack": "./scripts/afterPack.js",
     "asar": true,
     "asarUnpack": [
       "**/node_modules/sharp/**/*",
