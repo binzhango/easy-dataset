@@ -131,7 +131,7 @@ async def root() -> dict[str, str]:
 
 
 # Import and include routers
-from easy_dataset_server.api import backup, chunks, datasets, files, projects, questions, websocket
+from easy_dataset_server.api import backup, chunks, datasets, files, projects, questions, updates, websocket
 
 app.include_router(projects.router, prefix="/api", tags=["projects"])
 app.include_router(files.router, prefix="/api", tags=["files"])
@@ -140,4 +140,5 @@ app.include_router(questions.router, prefix="/api", tags=["questions"])
 app.include_router(datasets.router, prefix="/api", tags=["datasets"])
 app.include_router(websocket.router, prefix="/api", tags=["websocket"])
 app.include_router(backup.router, prefix="/api", tags=["backup"])
+app.include_router(updates.router, prefix="/api/updates", tags=["updates"])
 
