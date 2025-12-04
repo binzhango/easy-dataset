@@ -1,0 +1,168 @@
+{
+  "common": {
+    "success": "Başarılı",
+    "error": "Hata",
+    "warning": "Uyarı",
+    "info": "Bilgi",
+    "loading": "Yükleniyor...",
+    "saving": "Kaydediliyor...",
+    "processing": "İşleniyor...",
+    "completed": "Tamamlandı",
+    "failed": "Başarısız",
+    "cancelled": "İptal Edildi",
+    "unknown_error": "Bilinmeyen bir hata oluştu"
+  },
+  "errors": {
+    "file_not_found": "Dosya bulunamadı: {{path}}",
+    "file_too_large": "Dosya boyutu maksimum {{max_size}}MB sınırını aşıyor",
+    "invalid_file_format": "Geçersiz dosya formatı: {{format}}",
+    "unsupported_file_type": "Desteklenmeyen dosya türü: {{type}}",
+    "encoding_detection_failed": "Dosya kodlaması tespit edilemedi",
+    "file_read_error": "Dosya okuma hatası: {{error}}",
+    "file_write_error": "Dosya yazma hatası: {{error}}",
+    "database_error": "Veritabanı hatası: {{error}}",
+    "connection_error": "Bağlantı hatası: {{error}}",
+    "api_error": "API hatası: {{error}}",
+    "authentication_failed": "Kimlik doğrulama başarısız",
+    "rate_limit_exceeded": "Hız sınırı aşıldı. Lütfen daha sonra tekrar deneyin",
+    "timeout_error": "İşlem zaman aşımına uğradı",
+    "validation_error": "Doğrulama hatası: {{error}}",
+    "missing_required_field": "Gerekli alan eksik: {{field}}",
+    "invalid_value": "{{field}} için geçersiz değer: {{value}}",
+    "project_not_found": "Proje bulunamadı: {{project_id}}",
+    "chunk_not_found": "Metin bloğu bulunamadı: {{chunk_id}}",
+    "question_not_found": "Soru bulunamadı: {{question_id}}",
+    "dataset_not_found": "Veri seti bulunamadı: {{dataset_id}}",
+    "model_not_configured": "Model yapılandırılmamış",
+    "provider_not_available": "Sağlayıcı kullanılamıyor: {{provider}}"
+  },
+  "tasks": {
+    "status": {
+      "pending": "Beklemede",
+      "processing": "İşleniyor",
+      "completed": "Tamamlandı",
+      "failed": "Başarısız",
+      "cancelled": "İptal Edildi"
+    },
+    "types": {
+      "file_processing": "Dosya İşleme",
+      "question_generation": "Soru Üretimi",
+      "answer_generation": "Cevap Üretimi",
+      "data_cleaning": "Veri Temizleme",
+      "dataset_evaluation": "Veri Seti Değerlendirme",
+      "multi_turn_generation": "Çok Turlu Konuşma Üretimi",
+      "image_question_generation": "Görsel Soru Üretimi"
+    },
+    "messages": {
+      "task_created": "Görev oluşturuldu: {{task_id}}",
+      "task_started": "Görev başlatıldı: {{task_type}}",
+      "task_progress": "İlerleme: {{completed}}/{{total}} ({{percentage}}%)",
+      "task_completed": "Görev başarıyla tamamlandı",
+      "task_failed": "Görev başarısız: {{error}}",
+      "task_cancelled": "Görev kullanıcı tarafından iptal edildi",
+      "processing_file": "Dosya işleniyor: {{filename}}",
+      "generating_questions": "{{count}} metin bloğu için sorular üretiliyor",
+      "generating_answers": "{{count}} soru için cevaplar üretiliyor",
+      "cleaning_data": "{{count}} öğe için veri temizleniyor",
+      "evaluating_dataset": "Veri seti kalitesi değerlendiriliyor"
+    }
+  },
+  "file_processing": {
+    "extracting_text": "{{format}} dosyasından metin çıkarılıyor",
+    "parsing_document": "Belge yapısı ayrıştırılıyor",
+    "splitting_text": "Metin bloklara bölünüyor",
+    "extracting_metadata": "Meta veriler çıkarılıyor",
+    "processing_images": "Görseller işleniyor",
+    "pdf_extraction": "PDF'den metin çıkarılıyor",
+    "markdown_parsing": "Markdown yapısı ayrıştırılıyor",
+    "docx_extraction": "DOCX'ten metin çıkarılıyor",
+    "epub_extraction": "EPUB'dan bölümler çıkarılıyor",
+    "text_encoding": "Metin kodlaması tespit ediliyor",
+    "chunk_created": "Metin bloğu oluşturuldu: {{chunk_id}}",
+    "chunks_created": "{{count}} metin bloğu oluşturuldu"
+  },
+  "llm": {
+    "connecting": "{{provider}} ile bağlantı kuruluyor",
+    "sending_request": "LLM'e istek gönderiliyor",
+    "receiving_response": "Yanıt alınıyor",
+    "streaming_response": "Yanıt akışı alınıyor",
+    "retrying": "İstek yeniden deneniyor (deneme {{attempt}}/{{max_attempts}})",
+    "request_failed": "İstek başarısız: {{error}}",
+    "response_received": "Yanıt alındı",
+    "extracting_answer": "Yanıttan cevap çıkarılıyor",
+    "extracting_thinking": "Düşünce zinciri çıkarılıyor",
+    "model_not_found": "Model bulunamadı: {{model}}",
+    "provider_error": "Sağlayıcı hatası: {{error}}",
+    "invalid_response": "LLM'den geçersiz yanıt",
+    "token_limit_exceeded": "Token sınırı aşıldı"
+  },
+  "prompts": {
+    "question_generation": {
+      "system": "Metin içeriğinden yüksek kaliteli sorular üretme konusunda uzmansınız.",
+      "user": "Aşağıdaki metne dayanarak {{count}} ilgili soru üretin:\n\n{{text}}",
+      "instruction": "Sağlanan metin kullanılarak cevaplanabilecek açık, spesifik sorular üretin."
+    },
+    "answer_generation": {
+      "system": "Sorulara ayrıntılı, doğru cevaplar verme konusunda uzmansınız.",
+      "user": "Soru: {{question}}\n\nBağlam: {{context}}\n\nKapsamlı bir cevap verin.",
+      "instruction": "Soruyu sağlanan bağlama göre cevaplayın. Doğru ve kapsamlı olun."
+    },
+    "data_cleaning": {
+      "system": "Metin verilerini temizleme ve normalleştirme konusunda uzmansınız.",
+      "user": "Aşağıdaki metni temizleyin ve normalleştirin:\n\n{{text}}",
+      "instruction": "Gereksiz boşlukları kaldırın, biçimlendirme sorunlarını düzeltin ve metni normalleştirin."
+    },
+    "evaluation": {
+      "system": "Soru-cevap çiftlerinin kalitesini değerlendirme konusunda uzmansınız.",
+      "user": "Bu S&C çiftinin kalitesini değerlendirin:\n\nSoru: {{question}}\nCevap: {{answer}}",
+      "instruction": "Kaliteyi 1-5 arasında puanlayın ve kısa geri bildirim sağlayın."
+    }
+  },
+  "export": {
+    "preparing_data": "Dışa aktarma için veri hazırlanıyor",
+    "formatting_data": "Veri {{format}} olarak biçimlendiriliyor",
+    "writing_file": "Dosyaya yazılıyor: {{filename}}",
+    "export_completed": "Dışa aktarma tamamlandı: {{filename}}",
+    "export_failed": "Dışa aktarma başarısız: {{error}}",
+    "validating_format": "{{format}} formatı doğrulanıyor",
+    "creating_archive": "Arşiv oluşturuluyor",
+    "json_export": "JSON formatına dışa aktarılıyor",
+    "jsonl_export": "JSONL formatına dışa aktarılıyor",
+    "csv_export": "CSV formatına dışa aktarılıyor",
+    "huggingface_export": "Hugging Face formatına dışa aktarılıyor",
+    "llamafactory_export": "LLaMA Factory formatına dışa aktarılıyor"
+  },
+  "validation": {
+    "validating_input": "Giriş verileri doğrulanıyor",
+    "validation_passed": "Doğrulama başarılı",
+    "validation_failed": "Doğrulama başarısız: {{errors}}",
+    "checking_format": "Dosya formatı kontrol ediliyor",
+    "checking_size": "Dosya boyutu kontrol ediliyor",
+    "checking_encoding": "Metin kodlaması kontrol ediliyor",
+    "verifying_structure": "Veri yapısı doğrulanıyor"
+  },
+  "database": {
+    "connecting": "Veritabanına bağlanılıyor",
+    "initializing": "Veritabanı başlatılıyor",
+    "migrating": "Veritabanı geçişleri çalıştırılıyor",
+    "creating_tables": "Veritabanı tabloları oluşturuluyor",
+    "saving_record": "Kayıt kaydediliyor",
+    "updating_record": "Kayıt güncelleniyor",
+    "deleting_record": "Kayıt siliniyor",
+    "querying_data": "Veri sorgulanıyor",
+    "transaction_started": "İşlem başlatıldı",
+    "transaction_committed": "İşlem onaylandı",
+    "transaction_rolled_back": "İşlem geri alındı"
+  },
+  "api": {
+    "request_received": "İstek alındı: {{method}} {{path}}",
+    "request_processed": "İstek başarıyla işlendi",
+    "invalid_request": "Geçersiz istek: {{error}}",
+    "unauthorized": "Yetkisiz erişim",
+    "forbidden": "Erişim yasak",
+    "not_found": "Kaynak bulunamadı",
+    "method_not_allowed": "Metoda izin verilmiyor",
+    "internal_error": "Dahili sunucu hatası",
+    "service_unavailable": "Hizmet geçici olarak kullanılamıyor"
+  }
+}

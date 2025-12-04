@@ -1,0 +1,168 @@
+{
+  "common": {
+    "success": "成功",
+    "error": "错误",
+    "warning": "警告",
+    "info": "信息",
+    "loading": "加载中...",
+    "saving": "保存中...",
+    "processing": "处理中...",
+    "completed": "已完成",
+    "failed": "失败",
+    "cancelled": "已取消",
+    "unknown_error": "发生未知错误"
+  },
+  "errors": {
+    "file_not_found": "文件未找到: {{path}}",
+    "file_too_large": "文件大小超过最大限制 {{max_size}}MB",
+    "invalid_file_format": "无效的文件格式: {{format}}",
+    "unsupported_file_type": "不支持的文件类型: {{type}}",
+    "encoding_detection_failed": "无法检测文件编码",
+    "file_read_error": "读取文件错误: {{error}}",
+    "file_write_error": "写入文件错误: {{error}}",
+    "database_error": "数据库错误: {{error}}",
+    "connection_error": "连接错误: {{error}}",
+    "api_error": "API错误: {{error}}",
+    "authentication_failed": "认证失败",
+    "rate_limit_exceeded": "超过速率限制，请稍后重试",
+    "timeout_error": "操作超时",
+    "validation_error": "验证错误: {{error}}",
+    "missing_required_field": "缺少必填字段: {{field}}",
+    "invalid_value": "{{field}} 的值无效: {{value}}",
+    "project_not_found": "项目未找到: {{project_id}}",
+    "chunk_not_found": "文本块未找到: {{chunk_id}}",
+    "question_not_found": "问题未找到: {{question_id}}",
+    "dataset_not_found": "数据集未找到: {{dataset_id}}",
+    "model_not_configured": "模型未配置",
+    "provider_not_available": "提供商不可用: {{provider}}"
+  },
+  "tasks": {
+    "status": {
+      "pending": "待处理",
+      "processing": "处理中",
+      "completed": "已完成",
+      "failed": "失败",
+      "cancelled": "已取消"
+    },
+    "types": {
+      "file_processing": "文件处理",
+      "question_generation": "问题生成",
+      "answer_generation": "答案生成",
+      "data_cleaning": "数据清洗",
+      "dataset_evaluation": "数据集评估",
+      "multi_turn_generation": "多轮对话生成",
+      "image_question_generation": "图像问题生成"
+    },
+    "messages": {
+      "task_created": "任务已创建: {{task_id}}",
+      "task_started": "任务已开始: {{task_type}}",
+      "task_progress": "进度: {{completed}}/{{total}} ({{percentage}}%)",
+      "task_completed": "任务成功完成",
+      "task_failed": "任务失败: {{error}}",
+      "task_cancelled": "任务已被用户取消",
+      "processing_file": "正在处理文件: {{filename}}",
+      "generating_questions": "正在为 {{count}} 个文本块生成问题",
+      "generating_answers": "正在为 {{count}} 个问题生成答案",
+      "cleaning_data": "正在清洗 {{count}} 项数据",
+      "evaluating_dataset": "正在评估数据集质量"
+    }
+  },
+  "file_processing": {
+    "extracting_text": "正在从 {{format}} 文件提取文本",
+    "parsing_document": "正在解析文档结构",
+    "splitting_text": "正在将文本分割成块",
+    "extracting_metadata": "正在提取元数据",
+    "processing_images": "正在处理图像",
+    "pdf_extraction": "正在从PDF提取文本",
+    "markdown_parsing": "正在解析Markdown结构",
+    "docx_extraction": "正在从DOCX提取文本",
+    "epub_extraction": "正在从EPUB提取章节",
+    "text_encoding": "正在检测文本编码",
+    "chunk_created": "已创建文本块: {{chunk_id}}",
+    "chunks_created": "已创建 {{count}} 个文本块"
+  },
+  "llm": {
+    "connecting": "正在连接到 {{provider}}",
+    "sending_request": "正在向LLM发送请求",
+    "receiving_response": "正在接收响应",
+    "streaming_response": "正在流式接收响应",
+    "retrying": "正在重试请求 (第 {{attempt}}/{{max_attempts}} 次)",
+    "request_failed": "请求失败: {{error}}",
+    "response_received": "已接收响应",
+    "extracting_answer": "正在从响应中提取答案",
+    "extracting_thinking": "正在提取思维链",
+    "model_not_found": "模型未找到: {{model}}",
+    "provider_error": "提供商错误: {{error}}",
+    "invalid_response": "LLM响应无效",
+    "token_limit_exceeded": "超过Token限制"
+  },
+  "prompts": {
+    "question_generation": {
+      "system": "你是一位从文本内容生成高质量问题的专家。",
+      "user": "基于以下文本，生成 {{count}} 个相关问题：\n\n{{text}}",
+      "instruction": "生成清晰、具体的问题，这些问题可以使用提供的文本来回答。"
+    },
+    "answer_generation": {
+      "system": "你是一位提供详细、准确答案的专家。",
+      "user": "问题: {{question}}\n\n上下文: {{context}}\n\n请提供全面的答案。",
+      "instruction": "根据提供的上下文回答问题。要准确和全面。"
+    },
+    "data_cleaning": {
+      "system": "你是一位清洗和规范化文本数据的专家。",
+      "user": "清洗和规范化以下文本：\n\n{{text}}",
+      "instruction": "删除不必要的空白，修复格式问题，并规范化文本。"
+    },
+    "evaluation": {
+      "system": "你是一位评估问答对质量的专家。",
+      "user": "评估这个问答对的质量：\n\n问题: {{question}}\n答案: {{answer}}",
+      "instruction": "从1-5评分并提供简短反馈。"
+    }
+  },
+  "export": {
+    "preparing_data": "正在准备导出数据",
+    "formatting_data": "正在格式化数据为 {{format}}",
+    "writing_file": "正在写入文件: {{filename}}",
+    "export_completed": "导出完成: {{filename}}",
+    "export_failed": "导出失败: {{error}}",
+    "validating_format": "正在验证 {{format}} 格式",
+    "creating_archive": "正在创建归档",
+    "json_export": "正在导出为JSON格式",
+    "jsonl_export": "正在导出为JSONL格式",
+    "csv_export": "正在导出为CSV格式",
+    "huggingface_export": "正在导出为Hugging Face格式",
+    "llamafactory_export": "正在导出为LLaMA Factory格式"
+  },
+  "validation": {
+    "validating_input": "正在验证输入数据",
+    "validation_passed": "验证通过",
+    "validation_failed": "验证失败: {{errors}}",
+    "checking_format": "正在检查文件格式",
+    "checking_size": "正在检查文件大小",
+    "checking_encoding": "正在检查文本编码",
+    "verifying_structure": "正在验证数据结构"
+  },
+  "database": {
+    "connecting": "正在连接数据库",
+    "initializing": "正在初始化数据库",
+    "migrating": "正在运行数据库迁移",
+    "creating_tables": "正在创建数据库表",
+    "saving_record": "正在保存记录",
+    "updating_record": "正在更新记录",
+    "deleting_record": "正在删除记录",
+    "querying_data": "正在查询数据",
+    "transaction_started": "事务已开始",
+    "transaction_committed": "事务已提交",
+    "transaction_rolled_back": "事务已回滚"
+  },
+  "api": {
+    "request_received": "收到请求: {{method}} {{path}}",
+    "request_processed": "请求处理成功",
+    "invalid_request": "无效请求: {{error}}",
+    "unauthorized": "未授权访问",
+    "forbidden": "访问被禁止",
+    "not_found": "资源未找到",
+    "method_not_allowed": "方法不允许",
+    "internal_error": "内部服务器错误",
+    "service_unavailable": "服务暂时不可用"
+  }
+}

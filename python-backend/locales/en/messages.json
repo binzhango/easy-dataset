@@ -1,0 +1,168 @@
+{
+  "common": {
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Information",
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "processing": "Processing...",
+    "completed": "Completed",
+    "failed": "Failed",
+    "cancelled": "Cancelled",
+    "unknown_error": "An unknown error occurred"
+  },
+  "errors": {
+    "file_not_found": "File not found: {{path}}",
+    "file_too_large": "File size exceeds maximum limit of {{max_size}}MB",
+    "invalid_file_format": "Invalid file format: {{format}}",
+    "unsupported_file_type": "Unsupported file type: {{type}}",
+    "encoding_detection_failed": "Failed to detect file encoding",
+    "file_read_error": "Error reading file: {{error}}",
+    "file_write_error": "Error writing file: {{error}}",
+    "database_error": "Database error: {{error}}",
+    "connection_error": "Connection error: {{error}}",
+    "api_error": "API error: {{error}}",
+    "authentication_failed": "Authentication failed",
+    "rate_limit_exceeded": "Rate limit exceeded. Please try again later",
+    "timeout_error": "Operation timed out",
+    "validation_error": "Validation error: {{error}}",
+    "missing_required_field": "Missing required field: {{field}}",
+    "invalid_value": "Invalid value for {{field}}: {{value}}",
+    "project_not_found": "Project not found: {{project_id}}",
+    "chunk_not_found": "Chunk not found: {{chunk_id}}",
+    "question_not_found": "Question not found: {{question_id}}",
+    "dataset_not_found": "Dataset not found: {{dataset_id}}",
+    "model_not_configured": "Model not configured",
+    "provider_not_available": "Provider not available: {{provider}}"
+  },
+  "tasks": {
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "completed": "Completed",
+      "failed": "Failed",
+      "cancelled": "Cancelled"
+    },
+    "types": {
+      "file_processing": "File Processing",
+      "question_generation": "Question Generation",
+      "answer_generation": "Answer Generation",
+      "data_cleaning": "Data Cleaning",
+      "dataset_evaluation": "Dataset Evaluation",
+      "multi_turn_generation": "Multi-turn Conversation Generation",
+      "image_question_generation": "Image Question Generation"
+    },
+    "messages": {
+      "task_created": "Task created: {{task_id}}",
+      "task_started": "Task started: {{task_type}}",
+      "task_progress": "Progress: {{completed}}/{{total}} ({{percentage}}%)",
+      "task_completed": "Task completed successfully",
+      "task_failed": "Task failed: {{error}}",
+      "task_cancelled": "Task cancelled by user",
+      "processing_file": "Processing file: {{filename}}",
+      "generating_questions": "Generating questions for {{count}} chunks",
+      "generating_answers": "Generating answers for {{count}} questions",
+      "cleaning_data": "Cleaning data for {{count}} items",
+      "evaluating_dataset": "Evaluating dataset quality"
+    }
+  },
+  "file_processing": {
+    "extracting_text": "Extracting text from {{format}} file",
+    "parsing_document": "Parsing document structure",
+    "splitting_text": "Splitting text into chunks",
+    "extracting_metadata": "Extracting metadata",
+    "processing_images": "Processing images",
+    "pdf_extraction": "Extracting text from PDF",
+    "markdown_parsing": "Parsing Markdown structure",
+    "docx_extraction": "Extracting text from DOCX",
+    "epub_extraction": "Extracting chapters from EPUB",
+    "text_encoding": "Detecting text encoding",
+    "chunk_created": "Created chunk: {{chunk_id}}",
+    "chunks_created": "Created {{count}} chunks"
+  },
+  "llm": {
+    "connecting": "Connecting to {{provider}}",
+    "sending_request": "Sending request to LLM",
+    "receiving_response": "Receiving response",
+    "streaming_response": "Streaming response",
+    "retrying": "Retrying request (attempt {{attempt}}/{{max_attempts}})",
+    "request_failed": "Request failed: {{error}}",
+    "response_received": "Response received",
+    "extracting_answer": "Extracting answer from response",
+    "extracting_thinking": "Extracting thinking chain",
+    "model_not_found": "Model not found: {{model}}",
+    "provider_error": "Provider error: {{error}}",
+    "invalid_response": "Invalid response from LLM",
+    "token_limit_exceeded": "Token limit exceeded"
+  },
+  "prompts": {
+    "question_generation": {
+      "system": "You are an expert at generating high-quality questions from text content.",
+      "user": "Based on the following text, generate {{count}} relevant questions:\n\n{{text}}",
+      "instruction": "Generate clear, specific questions that can be answered using the provided text."
+    },
+    "answer_generation": {
+      "system": "You are an expert at providing detailed, accurate answers to questions.",
+      "user": "Question: {{question}}\n\nContext: {{context}}\n\nProvide a comprehensive answer.",
+      "instruction": "Answer the question based on the provided context. Be accurate and thorough."
+    },
+    "data_cleaning": {
+      "system": "You are an expert at cleaning and normalizing text data.",
+      "user": "Clean and normalize the following text:\n\n{{text}}",
+      "instruction": "Remove unnecessary whitespace, fix formatting issues, and normalize the text."
+    },
+    "evaluation": {
+      "system": "You are an expert at evaluating the quality of question-answer pairs.",
+      "user": "Evaluate the quality of this Q&A pair:\n\nQuestion: {{question}}\nAnswer: {{answer}}",
+      "instruction": "Rate the quality from 1-5 and provide brief feedback."
+    }
+  },
+  "export": {
+    "preparing_data": "Preparing data for export",
+    "formatting_data": "Formatting data as {{format}}",
+    "writing_file": "Writing to file: {{filename}}",
+    "export_completed": "Export completed: {{filename}}",
+    "export_failed": "Export failed: {{error}}",
+    "validating_format": "Validating {{format}} format",
+    "creating_archive": "Creating archive",
+    "json_export": "Exporting to JSON format",
+    "jsonl_export": "Exporting to JSONL format",
+    "csv_export": "Exporting to CSV format",
+    "huggingface_export": "Exporting to Hugging Face format",
+    "llamafactory_export": "Exporting to LLaMA Factory format"
+  },
+  "validation": {
+    "validating_input": "Validating input data",
+    "validation_passed": "Validation passed",
+    "validation_failed": "Validation failed: {{errors}}",
+    "checking_format": "Checking file format",
+    "checking_size": "Checking file size",
+    "checking_encoding": "Checking text encoding",
+    "verifying_structure": "Verifying data structure"
+  },
+  "database": {
+    "connecting": "Connecting to database",
+    "initializing": "Initializing database",
+    "migrating": "Running database migrations",
+    "creating_tables": "Creating database tables",
+    "saving_record": "Saving record",
+    "updating_record": "Updating record",
+    "deleting_record": "Deleting record",
+    "querying_data": "Querying data",
+    "transaction_started": "Transaction started",
+    "transaction_committed": "Transaction committed",
+    "transaction_rolled_back": "Transaction rolled back"
+  },
+  "api": {
+    "request_received": "Request received: {{method}} {{path}}",
+    "request_processed": "Request processed successfully",
+    "invalid_request": "Invalid request: {{error}}",
+    "unauthorized": "Unauthorized access",
+    "forbidden": "Access forbidden",
+    "not_found": "Resource not found",
+    "method_not_allowed": "Method not allowed",
+    "internal_error": "Internal server error",
+    "service_unavailable": "Service temporarily unavailable"
+  }
+}
