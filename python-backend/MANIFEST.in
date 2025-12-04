@@ -1,0 +1,27 @@
+# Include documentation
+include README.md
+include LICENSE
+include CHANGELOG.md
+
+# Include configuration files
+include pyproject.toml
+include setup.py
+
+# Include package data
+recursive-include easy_dataset *.py
+recursive-include easy_dataset_server *.py
+
+# Include locales
+recursive-include locales *.json
+
+# Include type stubs
+include easy_dataset/py.typed
+
+# Exclude development and build files
+exclude .gitignore
+exclude .dockerignore
+recursive-exclude tests *
+recursive-exclude examples *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude * .DS_Store
