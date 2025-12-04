@@ -4,7 +4,7 @@ Project API endpoints.
 This module provides REST API endpoints for project management.
 """
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
@@ -14,6 +14,12 @@ from easy_dataset.schemas import (
     ProjectCreate,
     ProjectResponse,
     ProjectUpdate,
+)
+from easy_dataset.utils.query import (
+    PaginationParams,
+    SortParams,
+    build_query,
+    create_paginated_response,
 )
 from easy_dataset_server.dependencies import get_db
 
@@ -65,25 +71,61 @@ def create_project(
         )
 
 
-@router.get("/projects", response_model=List[ProjectResponse])
+@router.get("/projects")
 def list_projects(
-    skip: int = Query(0, ge=0, description="Number of records to skip"),
-    limit: int = Query(100, ge=1, le=1000, description="Maximum number of records to return"),
+    limit: int = Query(50, ge=1, le=1000, description="Number of items per page"),
+    offset: int = Query(0, ge=0, description="Number of items to skip"),
+    sort_by: Optional[str] = Query(None, description="Field to sort by"),
+    sort_order: str = Query("asc", description="Sort order: asc or desc"),
+    search: Optional[str] = Query(None, description="Search term"),
+    name: Optional[str] = Query(None, description="Filter by name"),
     db: Session = Depends(get_db),
-) -> List[ProjectResponse]:
+) -> Dict[str, Any]:
     """
-    List all projects with pagination.
+    List all projects with pagination, filtering, and sorting.
     
     Args:
-        skip: Number of records to skip
-        limit: Maximum number of records to return
+        limit: Number of items per page
+        offset: Number of items to skip
+        sort_by: Field to sort by (name, create_at, update_at)
+        sort_order: Sort order (asc or desc)
+        search: Search term (searches in name and description)
+        name: Filter by exact name match
         db: Database session
     
     Returns:
-        List of projects
+        Paginated list of projects with metadata
     """
-    projects = db.query(Projects).offset(skip).limit(limit).all()
-    return [ProjectResponse.model_validate(p) for p in projects]
+    # Create pagination and sort params
+    pagination = PaginationParams(limit=limit, offset=offset)
+    sort_params = SortParams(sort_by=sort_by, sort_order=sort_order)
+    
+    # Build filters
+    filters = {}
+    if name:
+        filters["name"] = name
+    
+    # Define allowed fields
+    allowed_sort_fields = ["name", "create_at", "update_at"]
+    allowed_filter_fields = ["name", "default_model_config_id"]
+    search_fields = ["name", "description"]
+    
+    # Build query
+    base_query = db.query(Projects)
+    query = build_query(
+        base_query=base_query,
+        model=Projects,
+        pagination=None,  # We'll apply pagination in create_paginated_response
+        sort_params=sort_params,
+        filters=filters,
+        search_term=search,
+        search_fields=search_fields,
+        allowed_filter_fields=allowed_filter_fields,
+        allowed_sort_fields=allowed_sort_fields
+    )
+    
+    # Create paginated response
+    return create_paginated_response(query, pagination, ProjectResponse)
 
 
 @router.get("/projects/{project_id}", response_model=ProjectResponse)

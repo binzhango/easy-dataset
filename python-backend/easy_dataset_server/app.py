@@ -12,13 +12,11 @@ from contextlib import asynccontextmanager
 from typing import Any
 
 from fastapi import FastAPI, Request, status
-from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-from sqlalchemy.exc import SQLAlchemyError
 
 from easy_dataset.database.connection import init_database
 from easy_dataset_server.config import settings
+from easy_dataset_server.middleware.error_handler import register_exception_handlers
 
 # Configure logging
 logging.basicConfig(
@@ -58,6 +56,8 @@ app = FastAPI(
     debug=settings.debug,
 )
 
+# Register exception handlers
+register_exception_handlers(app)
 
 # CORS middleware configuration
 app.add_middleware(
@@ -108,76 +108,6 @@ async def log_requests(request: Request, call_next):
         raise
 
 
-# Exception handlers
-@app.exception_handler(RequestValidationError)
-async def validation_exception_handler(
-    request: Request, exc: RequestValidationError
-):
-    """Handle validation errors with detailed error messages."""
-    request_id = getattr(request.state, "request_id", "unknown")
-    
-    errors = []
-    for error in exc.errors():
-        errors.append({
-            "field": ".".join(str(loc) for loc in error["loc"]),
-            "message": error["msg"],
-            "type": error["type"],
-        })
-    
-    logger.warning(
-        f"Validation error [{request_id}]: {errors}"
-    )
-    
-    return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        content={
-            "error": "Validation error",
-            "details": errors,
-            "request_id": request_id,
-        },
-    )
-
-
-@app.exception_handler(SQLAlchemyError)
-async def database_exception_handler(request: Request, exc: SQLAlchemyError):
-    """Handle database errors."""
-    request_id = getattr(request.state, "request_id", "unknown")
-    
-    logger.error(
-        f"Database error [{request_id}]: {str(exc)}",
-        exc_info=True,
-    )
-    
-    return JSONResponse(
-        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-        content={
-            "error": "Database error",
-            "details": [{"message": "An error occurred while accessing the database", "code": "DATABASE_ERROR"}],
-            "request_id": request_id,
-        },
-    )
-
-
-@app.exception_handler(Exception)
-async def global_exception_handler(request: Request, exc: Exception):
-    """Handle all unhandled exceptions."""
-    request_id = getattr(request.state, "request_id", "unknown")
-    
-    logger.error(
-        f"Unhandled exception [{request_id}]: {str(exc)}",
-        exc_info=True,
-    )
-    
-    return JSONResponse(
-        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-        content={
-            "error": "Internal server error",
-            "details": [{"message": str(exc), "code": "INTERNAL_ERROR"}],
-            "request_id": request_id,
-        },
-    )
-
-
 # Health check endpoint
 @app.get("/health", tags=["health"])
 async def health_check() -> dict[str, Any]:
@@ -201,11 +131,13 @@ async def root() -> dict[str, str]:
 
 
 # Import and include routers
-from easy_dataset_server.api import chunks, datasets, files, projects, questions
+from easy_dataset_server.api import backup, chunks, datasets, files, projects, questions, websocket
 
 app.include_router(projects.router, prefix="/api", tags=["projects"])
 app.include_router(files.router, prefix="/api", tags=["files"])
 app.include_router(chunks.router, prefix="/api", tags=["chunks"])
 app.include_router(questions.router, prefix="/api", tags=["questions"])
 app.include_router(datasets.router, prefix="/api", tags=["datasets"])
+app.include_router(websocket.router, prefix="/api", tags=["websocket"])
+app.include_router(backup.router, prefix="/api", tags=["backup"])
 
