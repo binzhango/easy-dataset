@@ -56,13 +56,38 @@ def generate_answers(project_id: str) -> None:
 
 @main.command()
 @click.argument("project_id")
-@click.option("--format", default="json", help="Export format (json, jsonl, csv)")
+@click.option("--format", default="json", help="Export format (json, jsonl, csv, huggingface, llamafactory)")
 @click.option("--output", default="dataset.json", help="Output file path")
-def export(project_id: str, format: str, output: str) -> None:
+@click.option("--min-rating", type=float, help="Minimum rating filter")
+@click.option("--confirmed-only", is_flag=True, help="Export only confirmed entries")
+def export(project_id: str, format: str, output: str, min_rating: float, confirmed_only: bool) -> None:
     """Export dataset to file."""
+    from easy_dataset import EasyDataset
+    
     click.echo(f"Exporting project: {project_id} to {output} in {format} format")
-    click.echo("Note: Full implementation coming in later tasks")
-    # Implementation will be added in task 17.1
+    
+    try:
+        dataset = EasyDataset()
+        
+        # Build export options
+        options = {}
+        if min_rating is not None:
+            options['min_rating'] = min_rating
+        if confirmed_only:
+            options['confirmed_only'] = True
+        
+        # Export dataset
+        result = dataset.export_dataset(
+            project_id=project_id,
+            format=format,
+            output_path=output,
+            **options
+        )
+        
+        click.echo(f"✓ Export completed: {result}")
+    except Exception as e:
+        click.echo(f"✗ Export failed: {e}", err=True)
+        raise click.Abort()
 
 
 @main.command()

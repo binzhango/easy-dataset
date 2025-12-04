@@ -581,6 +581,8 @@ class EasyDataset:
                 - include_metadata: Include metadata in export
                 - filter_tags: Only export entries with specific tags
                 - min_rating: Only export entries with rating >= this value
+                - confirmed_only: Only export confirmed entries
+                - progress_callback: Callback function for progress updates
                 
         Returns:
             Path to the exported file, or the exported data as a string.
@@ -594,15 +596,26 @@ class EasyDataset:
             ... )
             >>> print(f"Exported to: {path}")
         """
-        # This will be implemented when export functionality is created (task 11)
+        from easy_dataset.services.exporter import DatasetExporterService
+        
         logger.info(
             f"Exporting dataset for project {project_id} "
             f"to format: {format}"
         )
-        raise NotImplementedError(
-            "Dataset export not yet implemented. "
-            "This will be available after task 11 is completed."
+        
+        # Create exporter service
+        exporter = DatasetExporterService(self.session)
+        
+        # Export dataset
+        result = exporter.export(
+            project_id=project_id,
+            format=format,
+            output_path=output_path,
+            **options
         )
+        
+        logger.info(f"Export completed: {result}")
+        return result
     
     # ========================================================================
     # Utility Methods
