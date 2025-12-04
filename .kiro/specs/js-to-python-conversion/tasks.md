@@ -636,8 +636,8 @@
   - **Property 39: Database export completeness**
   - **Validates: Requirements 12.5**
 
-- [ ] 15. Update Electron desktop application
-- [ ] 15.1 Modify Electron main process to launch Python backend
+- [x] 15. Update Electron desktop application
+- [x] 15.1 Modify Electron main process to launch Python backend
   - Update electron/main.js to spawn Python process from python-backend/
   - Pass correct arguments to uvicorn
   - Handle backend startup and shutdown
@@ -649,14 +649,14 @@
   - **Property 40: Desktop shutdown cleanup**
   - **Validates: Requirements 13.3**
 
-- [ ] 15.3 Update Electron build configuration
+- [x] 15.3 Update Electron build configuration
   - Update electron-builder.yml to include python-backend/ in build
   - Package Python dependencies
   - Configure for Windows, macOS, Linux
   - Test installers on all platforms
   - _Requirements: 13.4_
 
-- [ ] 15.4 Implement auto-update for Python backend
+- [x] 15.4 Implement auto-update for Python backend
   - Create python-backend/easy_dataset/utils/updater.py
   - Check for backend updates
   - Download and install updates
